@@ -1,0 +1,80 @@
+
+The selection described in the previous section define the analysis Signal Region (SR) for $W \rightarrow \ell\nu$ and  $ Z \rightarrow \ell\ell$ candidate events (ZR).
+% and $ Z \rightarrow \tau\tau$ candidate events (ZRtt).
+However additional background processes contributing to the dataset need to be estimated with data-driven techniques, employing different event selection.
+
+Two categories of backgrounds can be defined: the electroweak (single and diboson) and top backgrounds, obtained from the appropriate MC samples as described in Section~\ref{sec:bkg_EWK}, and the multijet (MJ) background, estimated from data in both the W and the Z channels, as discussed in Section \cite{sec:bkg_mj}.
+
+The numbers of expected background events in both channels are summarised in Tables~\ref{tbl:SR_observed_candidates} and \ref{tbl:ZR_observed_candidates}.
+The values for the predicted cross sections of the signal and background samples
+% and their estimated uncertainties 
+are given in~\ref{tbl:mc_samples_ewk} \cite{CrossSectionHighOrder,SMDC14xsecs,TtbarNNLO}.
+This section summarises the evaluation of the expected background.
+
+\subsection{Electroweak and top backgrounds}
+\label{sec:bkg_EWK}
+
+The electroweak and top Monte Carlo samples listed in Table~\ref{tbl:mc_samples_ewk} are used to estimate the background in the analyses.
+Their contributions are normalised to the cross-sections shown in the same table.
+% , while their uncertainties, also in \todo{Table 10}, \todo{are used to evaluate the systematic uncertainties on the electroweak and top backgrounds.}
+Table \ref{tbl:ewk_bkg_SR} shows the expected contributions of individual background processes in each measurement channel.
+
+\begin{table}[h]
+\begin{center}
+ \begin{tabular}{ c | c | c | c | c } 
+ & $W \rightarrow e\nu$ &  $W \rightarrow \mu\nu$ &  $Z \rightarrow ee$ & $Z \rightarrow \mu\mu$ \\
+ & \% MC & \% MC & \% MC & \% MC \\
+ \hline
+  $W \rightarrow \tau\nu$ & 1.67 & 1.74 & 0.00 & 0.00 \\
+  $Z \rightarrow \tau\tau$ & 0.122 & 0.127 & 0.045 & 0.042 \\
+  Diboson & 0.11 & 0.1 &  0.106 & \\
+  single top and $t\bar{t}$ & 0.065 & 0.054 & 0.024 & 0.019 \\
+  $W \rightarrow e\nu$ & 96.64 & - & 0.033 & 0.00 \\
+  $W \rightarrow \mu\nu$ & - & 93.9 & 0.00 & 0.01 \\
+  $Z \rightarrow ee$ & 1.39 & - & 99.79 & 0.00 \\
+  $Z \rightarrow \mu\mu$ & - & 4.07 & 0.00 & 99.83 \\
+ \hline 
+\end{tabular}
+\caption{
+Electroweak background contributions estimated from simulation. 
+Expectations are expressed as a percentage of the total simulated events coming from the sources listed in the table and passing signal selection in each channel. 
+Totals with uncertainty are given in Tables~\ref{tbl:SR_observed_candidates} and \ref{tbl:ZR_observed_candidates}.
+}%
+\label{tbl:ewk_bkg_SR}
+\end{center}
+\end{table}
+
+\textbf{$W \rightarrow e\nu$:} Electroweak backgrounds $W \rightarrow \tau\nu$, $Z \rightarrow ee$, and $Z \rightarrow \tau\tau$ are evaluated.
+Top backgrounds $t\bar{t}$, $Wt$ and single top $t$-channel contributions are evaluated.
+Diboson backgrounds $WW$, $WZ$, $ZZ$ are evaluated.
+
+\textbf{$W \rightarrow \mu\nu$:} Electroweak backgrounds $W \rightarrow \tau\nu$, $Z \rightarrow \mu\mu$, and $Z \rightarrow \tau\tau$ are evaluated.
+Top backgrounds $t\bar{t}$, $Wt$ and single top $t$-channel contributions are evaluated.
+Diboson backgrounds $WW$, $WZ$, $ZZ$ are evaluated.
+
+All other sources of background are negligible in comparison.
+
+\subsection{$W\rightarrow\ell\nu$ multijet background estimate methodology}
+\label{sec:bkg_mj}
+
+The selection of an isolated lepton, high $E_T^{miss}$, and high $m_T$, effectively rejects most of the multijet QCD production (MJ).
+However, contamination from such background process remains because of its very high production cross-section, and a small probability of fake $W$-boson-like signatures from jets mimicking the isolated lepton selection, and $E_T^{miss}$,  generated through energy mismeasurement in the event.
+The MJ background composition may also be very diverse, depending on the $p_T$ range of interest and the lepton type.
+It may be composed by heavy-quark leptonic decays, material conversions, or hadrons.
+Because of the difficulties in the precise simulation of all these effects, data-driven techniques are often used for the MJ estimate in the $W \rightarrow e\nu$ and $W \rightarrow \mu\nu$. 
+
+A generic recipe for a data-driven estimate is based on the selection of an MJ fake-enriched data sample obtained by relaxing or inverting one of the isolated lepton identification cuts (\textit{MJ-template selection}) then the newly selected MJ-template is normalized using data in a Control Region (CR) selected to have a sizable MJ fraction.
+The normalization can be extracted using the fit of a kinematic distribution able to separate the signal from the MJ, where the MJ shape is derived from the MJ-template and the signal shape from MC.
+The normalization scaling factor extracted from the CR is then applied to the number of MJ-template events passing the Signal Region (SR) selection.
+The weak points arising from the MJ extraction with the described method are:
+\begin{itemize}
+\item Arbitrariness of MJ-template lepton selection
+\item Arbitrariness of the choice of the discriminant variable to fit
+\item Biases in composition and kinematics of MJ-template with respect to events containing non-prompt leptons or fakes passing the signal selection
+\item Subtraction from the MJ-template of contamination coming from prompt leptons produced by $W$ signal (of which we should measure the cross-section) or other electroweak processes.
+\end{itemize}
+
+% ToDo : ones extrapolation will work, use it
+\input{chapters/background_mj_extrapolation}
+
+\input{chapters/background_mj_ff}

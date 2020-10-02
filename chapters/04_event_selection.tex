@@ -1,0 +1,230 @@
+
+The signal region is designed to be enriched in events including the EW W leptonic decay process, while additional orthogonal (control) regions are constructed as part of the methods used to determine the main backgrounds, namely the multijet processes as described in Section~\ref{sec:bkg_mj}.
+
+\subsection{Trigger selection and data quality}
+\label{sec:event_selection_trigger_and_dataQ}
+
+Only events recorded with a fully operational detector are used in this analysis.
+The detector status as stored in the good run lists (Table~\ref{tbl:GRL}) is used to select the appropriate events.
+Events selected by any of the single electron or muon trigger listed in Table~\ref{tbl:triggers} are kept, totalling an integrated luminosity of \todo{3.2} $fb^{-1}$ of data.
+
+\begin{table}[h]
+\begin{center}
+ \begin{tabular}{ | c | c | } 
+ \hline
+ \hline
+ Trigger type & Trigger name \\
+ \hline
+ Single electron & \\
+ -- 2015 & HLT\_e24\_lhmedium\_L1EM20VH, HLT\_e60\_lhmedium, HLT\_e120\_lhloose \\
+%  -- 2016 & HLT\_e26\_lhtight\_nod0\_ivarloose, HLT\_e60\_lhmedium\_nod0, HLT\_e140\_lhloose\_nod0 \\
+ \hline
+ \hline
+ Single muon & \\
+  -- 2015 & HLT\_mu20\_iloose\_L1MU15, HLT\_mu50 \\
+%   -- 2016 & HLT\_mu26\_ivarmedium, HLT\_mu50 \\
+ \hline 
+\end{tabular}
+\caption{
+     List of single electron and muon triggers inclusively combined for the electron and muon channels, respectively.
+}%
+\label{tbl:triggers}
+\end{center}
+\end{table}
+
+\subsection{Phase Space Definitions}
+\label{sec:event_selection_phase_space}
+
+In order to ensure being consistent with pp-collisions, events are required to include a reconstructed primary vertex from the hard scattering interaction, with at least 3 tracks associated.
+The events of interest are then pre-selected by specifying the multiplicity of the physics objects.
+Events including exactly one or two leptons are kept.
+The transverse momentum of the selected leading leptons is required to exceed 27~GeV, so as to maintain a maximum efficiency for the lepton triggers, for which the lowest online $p_T$ threshold is of 26(24)~GeV in 2016(2015) data.
+In addition, only events containing no $b$-tagged jets or bad jets are selected.
+
+
+Table \ref{tbl:event_selection} summarises the selection cuts of all the regions considered in the analysis.
+
+\subsubsection{Signal region}
+\label{sec:w_boson_selection}
+
+% The $W$ production cross section the fiducial phase space is defined by:
+% \begin{itemize}
+% \item $p_{T,\ell} > 25$~GeV
+% \item $p_{T,\nu} > 25$~GeV
+% \item $|\eta_\ell| < 2.5$
+% \item $m_{T} > 40$~GeV
+% \end{itemize}
+% where p$p_{T,\nu}$ is the neutrino transverse momentum, and $m_{T}$ is the transverse mass defined as
+% \begin{equation}
+%   \label{eq:mT_W}
+%   m_{T} = \sqrt{2p_{T,\ell} p_{T,\nu} (1-cos(\phi_{\ell} - \phi_{\nu} )) }
+% \end{equation}
+% with $\phi_{\ell}$ the azimuthal angle of the charged lepton, and $\phi_{\nu}$ the azimuthal angle of the neutrino.
+
+On top of the requirements above, additional cuts are applied in order to define an signal region, which contains a significant amount of $W$ events arising from EW processes.
+In this region, events with a W boson decaying leptonically are enhanced by requiring exactly one selected lepton and the missing transverse energy defined in Section~\ref{sec:definition_of_missing_energy} to exceed 25~GeV.
+Lepton should pass ``Tight'' ID and ``FCTight'' isolation working point.
+
+Events containing calibrated jets with quality ``LooseBad'', satisfying the Jet Vertex Tagger (JVT) requirement, and with transverse momentum above 20 GeV are rejected. 
+This is referred to as “MET cleaning”. 
+Transverse mass of the $(\ell,E_{T}^{miss})$ system:
+\begin{equation}
+  \label{eq:mT_W}
+  m_{T} = \sqrt{2 p_{T,\ell} p_{T,\nu} (1-cos(\phi_{\ell} - \phi_{\nu} )) }
+\end{equation}
+to be greater than 40~GeV, so as to suppress the contribution from multijet events from one side and not cut out to many signal $W\rightarrow\tau\nu$ events.
+
+\begin{table}[htbp]
+\begin{center}
+ \begin{tabular}{c | c} 
+ \hline
+ \hline
+ \multicolumn{2}{c}{Preselection} \\
+ \hline
+ GRL & See Table~\ref{tbl:GRL}  \\ 
+ Vertex & > 3 associated tracks  \\ 
+ Jets & No $b$-tagged jets \&\& no bad jets \\
+ \hline
+ \multicolumn{2}{c}{Lepton Selection - Electrons} \\
+ \hline
+Trigger & Single electron (see Table~\ref{tbl:triggers}) \\
+ $pT$ & > 27 GeV \\
+ $\eta$ & $|\eta|$ < 2.47 \&\& ($|\eta|$ < 1.37 || $|\eta|$ > 1.52) \\
+ ID & Tight \\
+ Isolation & tight isolation \\
+ \hline
+ \multicolumn{2}{c}{Lepton Selection - Muons} \\
+ \hline
+ Trigger & Single muon (see Table~\ref{tbl:triggers}) \\
+ $pT$ & > 27 GeV \\
+ $\eta$ & $|\eta|$ < 2.4 \\
+ ID & Tight \\
+ Isolation & tight isolation \\
+ \hline
+ \multicolumn{2}{c}{Boson Selection - $W$} \\
+ \hline
+ N leptons & exactly 1 \\
+ OR & Overlap removal between jets and leptons \\
+ $E_{T}^{miss}$ & > 25 GeV and apply MET cleaning \\
+ $m_{T}$ & > 40 GeV \\
+ \hline
+ \multicolumn{2}{c}{Boson Selection - $Z\rightarrow\ell\ell$, where $\ell=e,\mu$} \\
+ \hline
+ N leptons & exactly 2, same flavor \&\& oppositely charged \\
+ Mass window & 66 GeV < $m_{\ell\ell}$ < 116 GeV  \\
+%  \hline
+%  \multicolumn{2}{c}{Boson Selection - $Z\rightarrow\tau\tau$} \\
+%  \hline
+%  N leptons & exactly 2, opposite flavor \&\& oppositely charged \\
+%  Mass window & $m_{\ell\ell}$ < 85 GeV  \\
+ \hline
+ \hline
+\end{tabular}
+\caption{Overview of the event selection criteria applied. For the definition of leptons and missing energy refer to the text.}%
+\label{tbl:event_selection}
+\end{center}
+\end{table}
+
+% Table \ref{tbl:selection_w} summarises the number of $W \rightarrow \ell \nu$ candidates in data remaining after each major requirement in the respective analyses. 
+Table \ref{tbl:SR_observed_candidates} summarises the number of $W \rightarrow \ell \nu$  candidates pass all requirements in the electron and the muon channels.
+
+% A total of \todo{1.58441e+07} candidates 
+% % (\todo{8849290}$e^+$ and \todo{6994806} $e^-$) 
+% pass all requirements in the electron channel and \todo{1.666795e+07} candidates 
+% % (\todo{9444709} $\mu^+$ and \todo{7223237} $\mu^-$)
+% in the muon channel.
+
+% \begin{table}[h]
+% \begin{center}
+%  \begin{tabular}{ c | c | c | c | c } 
+%  \hline \hline
+%  Requirement & \multicolumn{4}{c}{Number of candidates} \\
+%  \hline
+%   & \multicolumn{2}{c}{$W \rightarrow e \nu$} & \multicolumn{2}{|c}{$W \rightarrow \mu \nu$} \\
+%  \hline
+%   & Data & Signal MC & Data & Signal MC \\
+%  \hline \hline
+%  Lepton selection & & & & \\
+%  $E_T^{miss}$ > 25 GeV & & & & \\
+%  $m_T$ > 40 GeV & & & & \\
+%  \hline \hline
+% \end{tabular}
+% \caption{
+% Number of $W \rightarrow e \nu$ and $W \rightarrow \mu \nu$ candidates in data and signal MC, remaining after each major requirement.
+% The first entry of the table (Lepton selection) includes also the preselection, OR, and di-lepton veto cuts listed in \ref{tbl:event_selection}.
+% The signal MC is normalised to the NNLO cross-section shown in Table \ref{tbl:mc_samples} and to luminosity.
+% }%
+% \label{tbl:selection_w}
+% \end{center}
+% \end{table}
+
+\subsubsection{Z region ($ee$ and $\mu\mu$)}
+\label{sec:z_boson_selection_ll}
+
+Events containing a $Z$ boson candidate are selected by requiring exactly two selected leptons of the same flavor which are oppositely charged. 
+The invariant mass of the di-lepton pair has to be within 66~GeV$<m_{\ell\ell}<$116~GeV.
+Both leptons should pass ``Tight'' ID and ``FCTight'' isolation working point.
+Sub-leading lepton should also have $p_T>27$~GeV.
+% Table \ref{tbl:selection_zll} summarises the number of $Z \rightarrow \ell \ell$ candidates remaining in data after each major requirement has been imposed.
+
+Table \ref{tbl:ZR_observed_candidates} summarises the number of $Z \rightarrow \ell \ell$  candidates pass all requirements in the electron and the muon channels.
+% % (\todo{610231}$e^+e^+$ and \todo{608734} $e^-e^-$)
+% pass all requirements in the electron channel and \todo{1374247} candidates 
+% % (\todo{749630} $\mu^+\mu^+$ and \todo{677202} $\mu^-\mu^-$)
+% in the muon channel.
+
+% \begin{table}[h]
+% \begin{center}
+%  \begin{tabular}{ c | c | c } 
+%  \hline \hline
+%  Requirement & \multicolumn{2}{|c}{Number of candidates} \\
+%   & $Z \rightarrow e e$ & $Z \rightarrow \mu \mu$ \\
+%  \hline \hline
+%  Trigger & & \\
+%  Two tight ID leptons ($ee$ or $\mu\mu$ with $E_T(p_{T})$ > 27 GeV) & & \\
+%  Isolation & & \\
+%  Opposite charge $ee$ or $\mu\mu$ pair & & \\
+%  66~GeV$<m_{\ell\ell}<$116~GeV & & \\
+%  \hline \hline
+% \end{tabular}
+% \caption{
+% Number of $Z \rightarrow e e$ and $Z \rightarrow \mu \mu$ candidates in data, remaining after each major requirement.
+% }%
+% \label{tbl:selection_zll}
+% \end{center}
+% \end{table}
+
+% \begin{table}[h]
+% \begin{center}
+%  \begin{tabular}{ c | c | c } 
+%  \hline \hline
+%  Requirement & \multicolumn{2}{|c}{Number of candidates} \\
+%   & $Z \rightarrow \tau\tau \rightarrow e \mu$ & $Z \rightarrow \tau\tau \rightarrow \mu e$ \\
+%  \hline \hline
+%  Trigger & & \\
+%  Two tight ID leptons ($e\mu$ or $\mu e$ with $E_T(p_{T})$ > 27 GeV) & & \\
+%  Isolation & & \\
+%  Opposite charge $\mu e$ or $e\mu$ pair & & \\
+%  $m_{\ell\ell}<$85~GeV & & \\
+%  \hline \hline
+% \end{tabular}
+% \caption{
+% Number of leptonic $Z \rightarrow \tau\tau$ candidates in data, remaining after each major requirement.
+% }%
+% \label{tbl:selection_ztau}
+% \end{center}
+% \end{table}
+
+
+% \subsubsection{Z region ($\tau\tau$)}
+% \label{sec:z_boson_selection_tautau}
+
+% \todo{Add $Z\to\tau\tau$ selection.}
+
+% Events containing a $Z$ boson candidate are selected by requiring exactly two selected leptons of the same flavor which are oppositely charged. 
+% The invariant mass of the di-lepton pair has to be within 66~GeV$<m_{\ell\ell}<$116~GeV.
+% Both leptons should pass ``Tight'' ID and ``FCTight'' isolation working point.
+% Sub-leading lepton should also have $p_T>27$~GeV.
+% % Table \ref{tbl:selection_zll} summarises the number of $Z \rightarrow \ell \ell$ candidates remaining in data after each major requirement has been imposed.
+
+% Table \ref{tbl:ZR_observed_candidates} summarises the number of $Z \rightarrow \ell \ell$  candidates pass all requirements in the electron and the muon channels.

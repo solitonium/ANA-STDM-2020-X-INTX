@@ -1,0 +1,34 @@
+
+% All analyses in this note are performed in either the ATHENA or \todo{RootCore} software frameworks, using the most up-to-date ATLAS software release.
+
+\subsection{Calibration and Tuning of Monte Carlo Signal}
+\label{sec:calibration_and_tuning_of_Monte_Carlo_Signal}
+
+\subsubsection{Weights applied to MC events}
+\label{sec:Weights_applied_to_MC_events}
+
+The weight applied to each MC event is computed as the product of the following factors:
+\begin{itemize}
+    \item {\fontfamily{txtt}\selectfont weight\_mc} - weight produced by the MC generators;
+    \item {\fontfamily{txtt}\selectfont weight\_pileup} - weight intended to make the pileup distribution in MC to be consistent with that in data;
+    \item {\fontfamily{txtt}\selectfont weight\_leptonSF} - lepton scale factor;
+    \item {\fontfamily{txtt}\selectfont weight\_bTagSF\_MV2c10\_70} - scale factor correcting the $b$-tagging efficiency;
+    \item {\fontfamily{txtt}\selectfont weight\_jvt} - scale factor correcting the distribution of the {\fontfamily{txtt}\selectfont JVT} variable;
+\end{itemize}
+
+Our preselection of events includes the requirement of one lepton or two leptons that are both satisfy trigger conditions.
+So we are using the default {\fontfamily{txtt}\selectfont weight\_leptonSF} that is computed for single lepton according to Eq. \ref{eq:weight_leptonSF_singl}:
+
+% \begin{equation}
+\begin{multline}
+    \label{eq:weight_leptonSF_singl}
+    % { \fontfamily{txtt}\selectfont
+    weight\_leptonSF = weight\_leptonSF\_Reco\ *\ weight\_leptonSF\_Trigger\ \\
+    *\ weight\_leptonSF\_ID\ *\ weight\_leptonSF\_Isol\ *\ weight\_leptonSF\_TTVA
+    % }
+\end{multline}
+% \end{equation}
+
+All individual weights used in (Eq. \ref{eq:weight_leptonSF_singl}) are provided by the Muon Combined Performance Group.
+
+

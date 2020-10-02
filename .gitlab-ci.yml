@@ -1,0 +1,28 @@
+####################################################
+#
+# Gitlab CI for automatic checks of papers and notes
+# This will take care of running the needed steps
+# for checking everything
+#
+#################################################################
+#
+# THIS FILE IS AUTOMATICALLY PRODUCED AND UPDATED BY THE CI TOOLS
+# DON'T MODIFY THIS FILE !!!!!
+#
+#################################################################
+
+image: gitlab-registry.cern.ch/atlas-physics-office/gitlab-integration/pogitlab
+
+# -- VARIABLES --
+variables:
+  DOCNAME: ANA-STDM-2018-50-INT1
+  MAND_TAG: 5.0.4
+  FROZEN: newest
+  JOBS_SCRIPTS_PATH: "/usr/share/scripts"
+  IMAGE_POTL: gitlab-registry.cern.ch/atlas-physics-office/gitlab-integration/potl-2016
+# -- END OF VARIABLES --
+
+include:
+  - project: 'atlas-physics-office/gitlab-integration'
+    ref: master
+    file: '/pogitlab/ci-jobs.yml'

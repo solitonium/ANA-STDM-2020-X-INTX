@@ -1,0 +1,212 @@
+%-------------------------------------------------------------------------------
+% This file provides a skeleton ATLAS note.
+% \pdfinclusioncopyfonts=1
+% This command may be needed in order to get \ell in PDF plots to appear. Found in
+% https://tex.stackexchange.com/questions/322010/pdflatex-glyph-undefined-symbols-disappear-from-included-pdf
+%-------------------------------------------------------------------------------
+% Specify where ATLAS LaTeX style files can be found.
+\newcommand*{\ATLASLATEXPATH}{latex/}
+% Use this variant if the files are in a central location, e.g. $HOME/texmf.
+% \newcommand*{\ATLASLATEXPATH}{}
+%-------------------------------------------------------------------------------
+\documentclass[NOTE, atlasdraft=true, texlive=2016, UKenglish]{\ATLASLATEXPATH atlasdoc}
+% The language of the document must be set: usually UKenglish or USenglish.
+% british and american also work!
+% Commonly used options:
+%  atlasdraft=true|false This document is an ATLAS draft.
+%  texlive=YYYY          Specify TeX Live version (2016 is default).
+%  coverpage             Create ATLAS draft cover page for collaboration circulation.
+%                        See atlas-draft-cover.tex for a list of variables that should be defined.
+%  cernpreprint          Create front page for a CERN preprint.
+%                        See atlas-preprint-cover.tex for a list of variables that should be defined.
+%  NOTE                  The document is an ATLAS note (draft).
+%  PAPER                 The document is an ATLAS paper (draft).
+%  CONF                  The document is a CONF note (draft).
+%  PUB                   The document is a PUB note (draft).
+%  BOOK                  The document is of book form, like an LOI or TDR (draft)
+%  txfonts=true|false    Use txfonts rather than the default newtx
+%  paper=a4|letter       Set paper size to A4 (default) or letter.
+
+%-------------------------------------------------------------------------------
+% Extra packages:
+\usepackage{\ATLASLATEXPATH atlaspackage}
+% Commonly used options:
+%  biblatex=true|false   Use biblatex (default) or bibtex for the bibliography.
+%  backend=bibtex        Use the bibtex backend rather than biber.
+%  subfigure|subfig|subcaption  to use one of these packages for figures in figures.
+%  minimal               Minimal set of packages.
+%  default               Standard set of packages.
+%  full                  Full set of packages.
+%-------------------------------------------------------------------------------
+% Style file with biblatex options for ATLAS documents.
+\usepackage{\ATLASLATEXPATH atlasbiblatex}
+
+% Package for creating list of authors and contributors to the analysis.
+\usepackage{\ATLASLATEXPATH atlascontribute}
+
+% Useful macros
+\usepackage{\ATLASLATEXPATH atlasphysics}
+% See doc/atlas_physics.pdf for a list of the defined symbols.
+% Default options are:
+%   true:  journal, misc, particle, unit, xref
+%   false: BSM, heppparticle, hepprocess, hion, jetetmiss, math, process, other, texmf
+% See the package for details on the options.
+
+% Files with references for use with biblatex.
+% Note that biber gives an error if it finds empty bib files.
+\addbibresource{ANA-STDM-2018-50-INT1.bib}
+\addbibresource{bib/ATLAS.bib}
+\addbibresource{bib/CMS.bib}
+\addbibresource{bib/ConfNotes.bib}
+\addbibresource{bib/PubNotes.bib}
+
+% Paths for figures - do not forget the / at the end of the directory name.
+\graphicspath{{logos/}{figures/}}
+
+% Add you own definitions here (file ANA-STDM-2018-50-INT1-defs.sty).
+\usepackage{ANA-STDM-2018-50-INT1-defs}
+
+%-------------------------------------------------------------------------------
+% Generic document information
+%-------------------------------------------------------------------------------
+
+% Title, abstract and document
+\input{ANA-STDM-2018-50-INT1-metadata}
+% Author and title for the PDF file
+\hypersetup{pdftitle={ATLAS document},pdfauthor={The ATLAS Collaboration}}
+
+%-------------------------------------------------------------------------------
+% Content
+%-------------------------------------------------------------------------------
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+% List of contributors - print here or after the Bibliography.
+%\PrintAtlasContribute{0.30}
+
+\clearpage
+%-------------------------------------------------------------------------------
+\section*{Preface}
+\label{sec:preface}
+%-------------------------------------------------------------------------------
+
+\input{chapters/preface}
+
+\clearpage
+%-------------------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+%-------------------------------------------------------------------------------
+
+\input{chapters/01_intro}
+
+
+% %-------------------------------------------------------------------------------
+% \section{Data and MC Samples}
+% \label{sec:data_and_mc_samples}
+% %-------------------------------------------------------------------------------
+% \input{chapters/02_data_and_mc_samples}
+
+
+% %-------------------------------------------------------------------------------
+% \section{Object Identification}
+% \label{sec:object_identification}
+% %-------------------------------------------------------------------------------
+% \input{chapters/03_object_identification}
+
+% %-------------------------------------------------------------------------------
+% \section{Event Selection}
+% \label{sec:event_selection}
+% %-------------------------------------------------------------------------------
+% \input{chapters/04_event_selection}
+
+
+% % %-------------------------------------------------------------------------------
+% % \section{Corrections, Scale Factors and Systematic Variations}
+% % \label{sec:corrections}
+% % %-------------------------------------------------------------------------------
+% % \input{chapters/corrections}
+
+
+% %-------------------------------------------------------------------------------
+% \section{Background Expectations}
+% \label{sec:background}
+% %-------------------------------------------------------------------------------
+% \input{chapters/05_background}
+
+% %-------------------------------------------------------------------------------
+% \section{Kinematic Distributions and Summary of background-subtracted Candidate Events}
+% \label{sec:background_summary}
+% %-------------------------------------------------------------------------------
+% \input{chapters/06_background_summary}
+
+% %-------------------------------------------------------------------------------
+% \section{The definition of $d_0$ and its optimisation}
+% \label{sec:d0optimisation}
+% %-------------------------------------------------------------------------------
+% \input{chapters/07_d0optimisation}
+
+
+% %-------------------------------------------------------------------------------
+% \section{Systematic uncertainties}
+% \label{sec:Systematic}
+% %-------------------------------------------------------------------------------
+% \input{chapters/08_systematic}
+
+% %-------------------------------------------------------------------------------
+% \section{Fitting Procedure}
+% \label{sec:fit}
+% %-------------------------------------------------------------------------------
+% \input{chapters/09_fit}
+
+% %-------------------------------------------------------------------------------
+% \section{Results}
+% \label{sec:results}
+% %-------------------------------------------------------------------------------
+% \input{chapters/10_results}
+
+%-------------------------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+%-------------------------------------------------------------------------------
+
+A measurement of $R(\tau/\ell)$ has been performed with direct leptonic W decay mode using a dataset corresponding to an integrated luminosity of \todo{XXX}fb$^{-1}$ of proton-proton collisions at $\sqrt{s} = 13$~TeV recorded by the ATLAS experiment at the LHC.
+
+The expected precision on $R(\tau/\ell)$ is \todo{1.\%} and the best fit observed value of $R(\tau/\ell)$ is \todo{XX $\pm$ YY}. 
+This surpasses the precision of the most precise previous measurement from LEP in WW production and \todo{[shows/does not show]} $W\sigma$ tension with the SM prediction.
+
+%-------------------------------------------------------------------------------
+% If you use biblatex and either biber or bibtex to process the bibliography
+% just say \printbibliography here
+\printbibliography
+% If you want to use the traditional BibTeX you need to use the syntax below.
+%\bibliographystyle{bib/bst/atlasBibStyleWithTitle}
+%\bibliography{ANA-STDM-2018-50-INT1,bib/ATLAS,bib/CMS,bib/ConfNotes,bib/PubNotes}
+%-------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------
+% Print the list of contributors to the analysis
+% The argument gives the fraction of the text width used for the names
+%-------------------------------------------------------------------------------
+\clearpage
+\PrintAtlasContribute{0.30}
+
+
+%-------------------------------------------------------------------------------
+\clearpage
+\appendix
+\part*{Appendices}
+\addcontentsline{toc}{part}{Appendices}
+%-------------------------------------------------------------------------------
+
+% %-------------------------------------------------------------------------------
+% \section{List of MC samples}
+% \label{sec:details_on_list_of_MC_samples}
+% %-------------------------------------------------------------------------------
+% \input{chapters/details_on_list_of_MC_samples}
+
+
+\end{document}
