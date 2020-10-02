@@ -6,10 +6,10 @@
 %
 % Note that this file can be overwritten when atlaslatex is updated.
 %
-% Copyright (C) 2002-2018 CERN for the benefit of the ATLAS collaboration
+% Copyright (C) 2002-2020 CERN for the benefit of the ATLAS collaboration
 %-------------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{latex/atlaspackage}[2018/01/10 v.05-07-00 ATLAS LaTeX packages]
+\ProvidesPackage{latex/atlaspackage}[2020/09/09 v.09-01-00 ATLAS LaTeX packages]
 
 %-------------------------------------------------------------------------------
 % More advanced if syntax
@@ -26,12 +26,23 @@
 \DeclareBoolOption[true]{biblatex}
 \DeclareBoolOption[true]{siunitx}
 \DeclareBoolOption[false]{eVkern}
-\DeclareBoolOption[true]{percentspace}
+\DeclareBoolOption[false]{percentspace}
 \DeclareBoolOption[true]{csquotes}
 \DeclareBoolOption[true]{subfig}
 \DeclareBoolOption[false]{subfigure}
 \DeclareBoolOption[false]{subcaption}
 \DeclareBoolOption[true]{hyperref}
+\DeclareBoolOption[true]{bookmark}
+\DeclareBoolOption[true]{cleveref}
+\DeclareBoolOption[true]{capsref}
+\DeclareBoolOption[true]{abbrevref}
+% Packages included with full
+\DeclareBoolOption[false]{mhchem}
+\DeclareBoolOption[false]{physics}
+\DeclareBoolOption[false]{rotating}
+\DeclareBoolOption[false]{xfrac}
+\DeclareBoolOption[false]{xtab}
+% Miscellaneous packages and options
 \DeclareBoolOption[true]{lineno}
 \DeclareBoolOption[false]{txfonts}
 \DeclareStringOption[2016]{texlive}
@@ -66,19 +77,29 @@
   \fi
 \fi
 
+% Steer packages that are included with the full option
+% Turned on full option and off by default otherwise
+\ifthenelse{\boolean{APKG@more}}{%
+  \APKG@mhchemtrue
+  \APKG@physicstrue
+  \APKG@rotatingtrue
+  \APKG@xfractrue
+  \APKG@xtabtrue
+}{}
+
 % Packages that did not exist for TeX Live < 2009
-\ifthenelse{\APKG@texlive < 2009}{%
-  \APKG@siunitxfalse
-  \APKG@biblatexfalse
-}{%
-}
+% \ifthenelse{\APKG@texlive < 2009}{%
+%   \APKG@siunitxfalse
+%   \APKG@biblatexfalse
+% }{%
+% }
 
 %-------------------------------------------------------------------------------
 % Packages normally included by atlasdoc
 % Graphics
 \RequirePackage{graphicx}
 % Colour
-\RequirePackage{xcolor}
+\RequirePackage[svgnames]{xcolor}
 % Document language control
 \RequirePackage{babel}
 % Add line numbers
@@ -130,6 +151,8 @@
   \restoresymbol{AMS}{idotsint}
 \fi
 
+% microtype to improve spacing
+\RequirePackage[babel=true]{microtype}
 
 % Add command that can force all figures and tables (floats) to appear before a certain point
 \RequirePackage{placeins}
@@ -137,11 +160,11 @@
 \ifAPKG@standard
   \ifAPKG@csquotes
     % Language-sensitive quotes
-    \ifthenelse{\APKG@texlive < 2010}{%
-      \RequirePackage[babel=true]{csquotes}
-    }{%
+    % \ifthenelse{\APKG@texlive < 2010}{%
+    %   \RequirePackage[babel=true]{csquotes}
+    % }{%
       \RequirePackage[autostyle=true]{csquotes}
-    }
+    % }
   \fi
   % Extra options for footnotes
   % \RequirePackage[bottom]{footmisc}
@@ -151,35 +174,41 @@
   \ifAPKG@subfigure%
     \RequirePackage[TABBOTCAP]{subfigure}
     % subfigure option needed if subfig(ure) is also used
-    \RequirePackage[subfigure]{tocloft}
+    % \RequirePackage[subfigure]{tocloft}
   \else
     % Set options so that \ref{fig:sublabel} works like it does in subfigure and produces 1(a) etc.
     % \ref{fig:mainlabel} + \subref{fig:sublabel} should work in the same way.
     \ifAPKG@subcaption%
-      \ifthenelse{\APKG@texlive < 2012}{%
-        \RequirePackage{caption}
-      }{%
-      }
+      % \ifthenelse{\APKG@texlive < 2012}{%
+      %   \RequirePackage{caption}
+      % }{%
+      % }
       \RequirePackage[labelformat=simple]{subcaption}
       \renewcommand\thesubfigure{(\alph{subfigure})}
       \renewcommand\thesubtable{(\alph{subtable})}
       % subfigure option needed if subfig(ure) is also used
-      \RequirePackage{tocloft}
+      % \RequirePackage{tocloft}
     \else
       \ifAPKG@subfig%
         \RequirePackage[labelformat=simple,listofformat=subsimple,subrefformat=empty]{subfig}
         \renewcommand\thesubfigure{(\alph{subfigure})}
         \renewcommand\thesubtable{(\alph{subtable})}
         % subfigure option needed if subfig(ure) is also used
-        \RequirePackage[subfigure]{tocloft}
-      \else
-        \RequirePackage{tocloft}
+        % \RequirePackage[subfigure]{tocloft}
+      % \else
+      %   \RequirePackage{tocloft}
       \fi
     \fi
   \fi
 
+  % Fixes appendices displaying in pdf viewer index/outline under first appendix
+  % instead of under Appendix heading
+  \ifAPKG@bookmark
+    \RequirePackage{bookmark}
+  \fi
+
   % Remove dots in table of contents
-  \renewcommand{\cftdot}{}
+  % \renewcommand{\cftdot}{}
 
   % Typset anything with units using this package - also has very useful table formatting
   % Declare a few options and standard units for siunitx that are otherwise missing
@@ -187,31 +216,31 @@
   % Before 2012 siunitx Version 2 (arXiv until 10/02/2017)
   % Otherwise   siunitx Version 3
   \ifAPKG@siunitx
-    \ifthenelse{\APKG@texlive < 2012}{
-      \ifthenelse{\APKG@texlive < 2011}{
-        \typeout{atlaspackage: Loading siunitx definitions for TeX Live < 2011}
-        \RequirePackage[noload=addn]{siunitx}
-        \sisetup{alsoload=hep}
-        \sisetup{seperr}
-        \sisetup{repeatunits=false}
-        \sisetup{obeyall}
-        % \sisetup{sepfour}
-        \newunit{\m}{m}
-        % \newunit\micron{\micro\metre}
-        \newunit{\um}{\micro\meter}
-      }{
-        \typeout{atlaspackage: Loading siunitx definitions for TeX Live = 2011}
-        \RequirePackage{siunitx}
-        \sisetup{load-configurations=abbreviations}
-        \sisetup{separate-uncertainty}
-        \sisetup{range-units=single, list-units=single}
-        % \sisetup{group-digits=true, group-four-digits=true}
-        \sisetup{group-digits=true}
-        \sisetup{detect-all}
-        %\sisetup{detect-mode=false, mode=text}
-        \DeclareSIUnit\barn{b}
-      }
-    }{%
+    % \ifthenelse{\APKG@texlive < 2012}{
+    %   \ifthenelse{\APKG@texlive < 2011}{
+    %     \typeout{atlaspackage: Loading siunitx definitions for TeX Live < 2011}
+    %     \RequirePackage[noload=addn]{siunitx}
+    %     \sisetup{alsoload=hep}
+    %     \sisetup{seperr}
+    %     \sisetup{repeatunits=false}
+    %     \sisetup{obeyall}
+    %     % \sisetup{sepfour}
+    %     \newunit{\m}{m}
+    %     % \newunit\micron{\micro\metre}
+    %     \newunit{\um}{\micro\meter}
+    %   }{
+    %     \typeout{atlaspackage: Loading siunitx definitions for TeX Live = 2011}
+    %     \RequirePackage{siunitx}
+    %     \sisetup{load-configurations=abbreviations}
+    %     \sisetup{separate-uncertainty}
+    %     \sisetup{range-units=single, list-units=single}
+    %     % \sisetup{group-digits=true, group-four-digits=true}
+    %     \sisetup{group-digits=true}
+    %     \sisetup{detect-all}
+    %     %\sisetup{detect-mode=false, mode=text}
+    %     \DeclareSIUnit\barn{b}
+    %   }
+    % }{%
       \typeout{atlaspackage: Loading siunitx definitions for TeX Live > 2011}
       \RequirePackage{siunitx}
       \sisetup{separate-uncertainty}
@@ -219,28 +248,28 @@
       \sisetup{group-digits=integer, group-minimum-digits=5}
       \sisetup{detect-all}
       %\sisetup{detect-mode=false, mode=text}
-    }
+    % }
     % Units
-    \ifthenelse{\APKG@texlive < 2011}{
-      \renewunit{\mrad}{\milli\radian}
-      \newunit{\degr}{\degree}
-      \newunit{\barn}{b}
-      \newunit{\inb}{\per\nano\barn}
-      \newunit{\ipb}{\per\pico\barn}
-      \newunit{\ifb}{\per\femto\barn}
-      \renewunit{\clight}{\text{\ensuremath{c}}}
-      \renewunit[per=slash]{\eVperc}{\electronvolt\per\clight}
-      \newunit[per=slash]{\TeVc}{\tera\eVperc}
-      \newunit[per=slash]{\GeVc}{\giga\eVperc}
-      \newunit[per=slash]{\MeVc}{\mega\eVperc}
-      \newunit[per=slash]{\keVc}{\kilo\eVperc}
-      \newunit[per=slash]{\eVc}{\eVperc}
-      \newunit[per=slash]{\TeVcc}{\tera\eVperc\squared}
-      \newunit[per=slash]{\GeVcc}{\giga\eVperc\squared}
-      \newunit[per=slash]{\MeVcc}{\mega\eVperc\squared}
-      \newunit[per=slash]{\keVcc}{\kilo\eVperc\squared}
-      \newunit[per=slash]{\eVcc}{\eVperc\squared}
-    }{%
+    % \ifthenelse{\APKG@texlive < 2011}{
+    %   \renewunit{\mrad}{\milli\radian}
+    %   \newunit{\degr}{\degree}
+    %   \newunit{\barn}{b}
+    %   \newunit{\inb}{\per\nano\barn}
+    %   \newunit{\ipb}{\per\pico\barn}
+    %   \newunit{\ifb}{\per\femto\barn}
+    %   \renewunit{\clight}{\text{\ensuremath{c}}}
+    %   \renewunit[per=slash]{\eVperc}{\electronvolt\per\clight}
+    %   \newunit[per=slash]{\TeVc}{\tera\eVperc}
+    %   \newunit[per=slash]{\GeVc}{\giga\eVperc}
+    %   \newunit[per=slash]{\MeVc}{\mega\eVperc}
+    %   \newunit[per=slash]{\keVc}{\kilo\eVperc}
+    %   \newunit[per=slash]{\eVc}{\eVperc}
+    %   \newunit[per=slash]{\TeVcc}{\tera\eVperc\squared}
+    %   \newunit[per=slash]{\GeVcc}{\giga\eVperc\squared}
+    %   \newunit[per=slash]{\MeVcc}{\mega\eVperc\squared}
+    %   \newunit[per=slash]{\keVcc}{\kilo\eVperc\squared}
+    %   \newunit[per=slash]{\eVcc}{\eVperc\squared}
+    % }{%
       \DeclareSIUnit\micron{\micro\metre}
       \DeclareSIUnit\mrad{\milli\radian}
       \DeclareSIUnit\degr{\degree}
@@ -272,26 +301,39 @@
       \DeclareSIUnit[per-mode=symbol]\MeVcc{\mega\eVperc\squared}
       \DeclareSIUnit[per-mode=symbol]\keVcc{\kilo\eVperc\squared}
       \DeclareSIUnit[per-mode=symbol]\eVcc{\eVperc\squared}
-    }
+    % }
   \fi
 \fi
 
+%------------------------------------------------------------------------------
+% Packages included with the full option (or explicitly)
 
-\ifAPKG@more
-  % Tables that go over more than one page
-  \RequirePackage{xtab}
-  % \RequirePackage{longtable}
-  % \RequirePackage{supertable}
-
-  % Easy rotation of tables and figures
-  \RequirePackage{rotating}
-
-  % Nicer fractions
-  \RequirePackage{xfrac}
-
-  % Chemical elements and processes
+% Chemical elements and processes
+\ifthenelse{\boolean{APKG@mhchem}}{%
   \RequirePackage[version=3]{mhchem}
-\fi
+}{}
+
+% Macros for mathematics in physics
+\ifthenelse{\boolean{APKG@physics}}{%
+  \RequirePackage{physics}
+}{}
+
+% Easy rotation of tables and figures
+\ifthenelse{\boolean{APKG@rotating}}{%
+  \RequirePackage{rotating}
+}{}
+
+% Nicer fractions
+\ifthenelse{\boolean{APKG@xfrac}}{%
+  \RequirePackage{xfrac}
+}{}
+
+% Tables that go over more than one page
+\ifthenelse{\boolean{APKG@xtab}}{%
+  \RequirePackage{xtab}
+}{}
+% \RequirePackage{longtable}
+% \RequirePackage{supertable}
 
 % hyperref is usually included as late as possible
 \ifAPKG@hyperref
@@ -301,6 +343,27 @@
   \hypersetup{pdftitle={ATLAS Document},pdfauthor={ATLAS Collaboration}}
   \hypersetup{colorlinks,breaklinks}
   \hypersetup{linkcolor=blue,citecolor=blue,filecolor=black,urlcolor=blue}
+  \hypersetup{unicode,psdextra}
+\fi
+
+% cleveref should be included late
+\ifAPKG@standard
+  % Smart referencing
+  \ifAPKG@cleveref
+    \ifAPKG@capsref
+      \ifAPKG@abbrevref
+        \RequirePackage[capitalise]{cleveref}
+      \else
+        \RequirePackage[noabbrev,capitalise]{cleveref}
+      \fi
+    \else
+      \ifAPKG@abbrevref
+        \RequirePackage{cleveref}
+      \else
+        \RequirePackage[noabbrev]{cleveref}
+      \fi
+    \fi
+  \fi
 \fi
 
 % Use biblatex and biber for the bibliography
@@ -331,8 +394,13 @@
     \typeout{atlaspackage: passing maxbibnames option to biblatex}
     \PassOptionsToPackage{maxbibnames=\APKG@maxbibnames}{\ATLASLATEXPATH atlasbiblatex}
   \fi
-  \RequirePackage[backend=\APKG@backend,
-    style=numeric-comp, sorting=none, firstinits=true]{biblatex}
+  \ifthenelse{\APKG@texlive < 2016}{%
+    \RequirePackage[backend=\APKG@backend,
+      style=numeric-comp, sorting=none, firstinits=true]{biblatex}
+  }{%
+    \RequirePackage[backend=\APKG@backend,
+      style=numeric-comp, sorting=none, giveninits=true]{biblatex}
+  }
 \fi
 
 \endinput

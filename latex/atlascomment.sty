@@ -6,9 +6,9 @@
 %
 % Note that this file can be overwritten when atlaslatex is updated.
 %
-% Copyright (C) 2002-2018 CERN for the benefit of the ATLAS collaboration
+% Copyright (C) 2002-2020 CERN for the benefit of the ATLAS collaboration
 %-------------------------------------------------------------------------------
-\ProvidesPackage{latex/atlascomment}[2018/01/10 v.05-07-00 ATLAS language editing style]
+\ProvidesPackage{latex/atlascomment}[2020/09/09 v.09-01-00 ATLAS language editing style]
 \NeedsTeXFormat{LaTeX2e}
 
 %-------------------------------------------------------------------------------
@@ -27,9 +27,19 @@
 
 \ifACOMM@comment
   \typeout{atlascomment: showing comments}
-  \KOMAoptions{BCOR=-1cm}
-  \addtolength{\marginparwidth}{1.5cm}
-  \addtolength{\textwidth}{-1.5cm}
+  \typeout{Sizes before changing settings:}
+  \typeout{text height and width \the\textheight, \the\textwidth}
+  % \typeout{line width \the\linewidth}
+  \typeout{margin width and sep \the\marginparwidth, \the\marginparsep}
+  \KOMAoptions{BCOR=-5mm}
+  \KOMAoptions{DIV=last}
+  \addtolength{\marginparwidth}{10mm}
+  % BCOR changed from 5mmm in atlasdoc to -5mm here, so adjust text width
+  \addtolength{\textwidth}{-7.86mm}
+  \typeout{Sizes after changing settings:}
+  \typeout{text height and width \the\textheight, \the\textwidth}
+  % \typeout{line width \the\linewidth}
+  \typeout{margin width and sep \the\marginparwidth, \the\marginparsep}
   \RequirePackage{todonotes}
   \newcommand{\LEcomment}[3][]{%
     \ifthenelse{ \equal{#1}{} }

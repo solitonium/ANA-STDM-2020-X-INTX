@@ -7,9 +7,9 @@
 %
 % Note that this file can be overwritten when atlaslatex is updated.
 %
-% Copyright (C) 2002-2018 CERN for the benefit of the ATLAS collaboration
+% Copyright (C) 2002-2020 CERN for the benefit of the ATLAS collaboration
 %-------------------------------------------------------------------------------
-\ProvidesPackage{latex/atlasbiblatex}[2018/01/10 v.05-07-00 ATLAS biblatex style]
+\ProvidesPackage{latex/atlasbiblatex}[2020/09/09 v.09-01-00 ATLAS biblatex style]
 \NeedsTeXFormat{LaTeX2e}
 
 %-------------------------------------------------------------------------------
@@ -29,6 +29,7 @@
 \DeclareBoolOption[true]{eprint}
 \DeclareBoolOption[false]{address}
 \DeclareBoolOption[false]{location}
+\DeclareBoolOption[true]{backref}
 \DeclareStringOption[2016]{texlive}
 \ProcessKeyvalOptions*
 
@@ -40,10 +41,17 @@
   % Set block mode
   \typeout{atlasbiblatex: block set to \ABIB@block}
   \typeout{atlasbiblatex: maxbibnames set to \ABIB@maxbibnames}
-  \ExecuteBibliographyOptions{block=\ABIB@block}
   % Set maxbibnames
   \ExecuteBibliographyOptions{maxbibnames=\ABIB@maxbibnames}
-  % Include the DOI as a hyerlink with the journal.
+  % backref=true adds page numbers of citations to bibliography
+  \ifABIB@backref
+    \typeout{atlasbiblatex: turning backref on}
+    \ExecuteBibliographyOptions{backref=true}
+  \else
+    \typeout{atlasbiblatex: backref is off}
+    \ExecuteBibliographyOptions{backref=false}
+  \fi
+  % Include the DOI as a hyperlink with the journal.
   \ifABIB@showdoi
     \relax
   \else
@@ -160,11 +168,11 @@
   \fi
 
   % Print only first page - only works for TeX Live 2012 onwards I think
-  \ifthenelse{\ABIB@texlive < 2012}{%
-    \relax
-  }{%
+  % \ifthenelse{\ABIB@texlive < 2012}{%
+  %   \relax
+  % }{%
     \DeclareFieldFormat{pages}{\mkfirstpage[{\mkpageprefix[bookpagination]}]{#1}}
-  }
+  % }
 
   % Change punctuation to comma
   \renewcommand*{\newunitpunct}{\addcomma\space}

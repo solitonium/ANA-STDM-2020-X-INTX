@@ -1,14 +1,15 @@
 %-------------------------------------------------------------------------------
-% List of contributions to an ATLAS analysis
+% List of contributions to an ATLAS analysis.
+% This package requires hyperref to be loaded.
 %
 % See ChangeLog or Git log for history of changes.
 % Responsible: Ian Brock (ian.brock@cern.ch)
 %
 % Note that this file can be overwritten when atlaslatex is updated.
 %
-% Copyright (C) 2002-2018 CERN for the benefit of the ATLAS collaboration
+% Copyright (C) 2002-2020 CERN for the benefit of the ATLAS collaboration
 %-------------------------------------------------------------------------------
-\ProvidesPackage{latex/atlascontribute}[2018/01/10 v.05-07-00 ATLAS analysis contributions]
+\ProvidesPackage{latex/atlascontribute}[2020/09/09 v.09-01-00 ATLAS analysis contributions]
 \NeedsTeXFormat{LaTeX2e}
 
 % Use kvoptions package to set options
@@ -20,6 +21,19 @@
 \DeclareBoolOption[false]{xtab}
 \DeclareBoolOption[true]{authblk}
 \ProcessKeyvalOptions*
+
+% Use package xparse to process optional arguments.
+\RequirePackage{xparse}
+
+% \providecommand{\AtlasOrcid}[2]{\href{https://orcid.org/#2}{#1}}
+% Set up command for authors and ORCID
+\ProvideDocumentCommand \AtlasOrcid { o m } {%
+  \IfNoValueTF {#1} {%
+    #2%
+  }{%
+    \href{https://orcid.org/#1}{#2}%
+  }%
+}
 
 %\let\ifACTR@xtab\iffalse
 %\DeclareOption{xtab}{\let\ifACTR@xtab\iftrue}
@@ -50,11 +64,26 @@
     #1 & #2 \tabularnewline
   }
 }
-\newcommand{\AtlasAuthorContributor}[3]{%
-  \g@addto@macro\ACTR@Contributors{%
-    #1 & #3 \tabularnewline
-  }
-  \author[#2]{#1}
+% \newcommand{\AtlasAuthorContributor}[3]{%
+%   \g@addto@macro\ACTR@Contributors{%
+%     #1 & #3 \tabularnewline
+%   }
+%   \author[#2]{#1}
+% }
+
+% Use xparse to process optional argument is ORCID
+\NewDocumentCommand \AtlasAuthorContributor { o m m m } {%
+  \IfNoValueTF {#1} {%
+    \g@addto@macro\ACTR@Contributors{%
+      #2 & #4 \tabularnewline
+    }%
+    \author[#3]{#2}%
+  }{%
+    \g@addto@macro\ACTR@Contributors{%
+      #2 & #4 \tabularnewline
+    }%
+    \author[#3]{\AtlasOrcid[#1]{#2}}%
+  }%
 }
 
 \newcommand*{\AtlasContributionsTitle}{List of contributions}

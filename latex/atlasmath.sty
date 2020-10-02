@@ -4,7 +4,7 @@
 %
 % Note that this file can be overwritten when atlaslatex is updated.
 %
-% Copyright (C) 2002-2018 CERN for the benefit of the ATLAS collaboration
+% Copyright (C) 2002-2020 CERN for the benefit of the ATLAS collaboration
 %-------------------------------------------------------------------------------
 
 % +--------------------------------------------------------------------+
@@ -31,7 +31,7 @@
 % |                                                                    |
 % +--------------------------------------------------------------------+
 \newcommand{\spinor}[1]{\ensuremath{\left(\begin{matrix}#1_1\cr#1_2\cr#1_3\cr#1_4\cr\end{matrix}\right)}}
-\def\pmb#1{\setbox0=\hbox{$#1$}%  This is "poor man's boldface".
+\def\pmb#1{\setbox0=\hbox{\(#1\)}%  This is "poor man's boldface".
   \kern-.025em\copy0\kern-1.0\wd0%
   \kern.05em\copy0\kern-1.0\wd0%
   \kern-.025em\raise.0433em\box0}
